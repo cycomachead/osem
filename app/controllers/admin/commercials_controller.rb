@@ -65,9 +65,9 @@ module Admin
         flash[:notice] = 'Successfully added commercials.'
       else
         errors_text = ''
-        errors_text << 'Unable to find event with ID: ' + errors[:no_event].join(', ') + '. ' if errors[:no_event].any?
-        errors_text << 'There were some errors: ' + errors[:validation_errors].join('. ') if errors[:validation_errors].any?
-
+        errors_text += 'Unable to find event with ID: ' + errors[:no_event].join(', ') + '. ' if errors[:no_event].any?
+        errors_text += 'There were some errors: ' + errors[:validation_errors].join('. ') if errors[:validation_errors].any?
+        
         flash[:error] = errors_text
       end
       redirect_back(fallback_location: root_path)
