@@ -42,6 +42,19 @@ describe ConferencesController do
     end
   end
 
+  describe 'GET #calendar' do
+    it 'outputs conference text as written' do
+      conference.update!(title: 'Con <%= 6 * 7 %>')
+      sign_in create(:admin)
+
+      get :calendar, format: :ics
+
+      expect(response.media_type).to eq('text/calendar')
+      expect(response.body).to include('Con <%= 6 * 7 %>')
+      expect(response.body).not_to include('Con 42')
+    end
+  end
+
   describe 'OPTIONS #index' do
     it 'Response code is 200' do
       process :index

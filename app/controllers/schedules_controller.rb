@@ -25,7 +25,7 @@ class SchedulesController < ApplicationController
         cal = Icalendar::Calendar.new
         cal = icalendar_proposals(cal, event_schedules.map(&:event), @conference)
         cal.publish
-        render inline: cal.to_ical
+        render plain: cal.to_ical, content_type: Mime[:ics]
       end
 
       format.html do
